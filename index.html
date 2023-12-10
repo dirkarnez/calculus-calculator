@@ -17,8 +17,9 @@
     <br>
     <div id="console_output"></div>
     <script type="text/javascript">
-      const code = `import numpy as np
-print(np.convolve(np.array([1, 2, 3]), np.array([4, 5, 6])))
+      const code = `import scipy.integrate as integrate
+import scipy.special as special
+print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
 `;
         const consoleOutput = document.getElementById("console_output");
      	  const textareaInput = document.getElementById("textarea_input");
