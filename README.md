@@ -1,3 +1,3 @@
-[complex-number-calculator](https://dirkarnez.github.io/complex-number-calculator/)
+[calculus-calculator](https://dirkarnez.github.io/calculus-calculator/)
 ===================================================================================
-[cmath — Mathematical functions for complex numbers — Python 3.12.0 documentation](https://docs.python.org/3/library/cmath.html)
+[Integration (scipy.integrate) — SciPy v1.11.4 Manual](https://docs.scipy.org/doc/scipy/tutorial/integrate.html)
