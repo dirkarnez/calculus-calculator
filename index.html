@@ -45,7 +45,7 @@ print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
                   .then(() => pyodide.loadPackage("sympy"))
                   .then(() => pyodide.loadPackage("micropip"))
                   .then(() => pyodide.pyimport("micropip"))
-                  .then(micropip => micropip.install("py-pde"))
+                  .then(micropip => console.log("micropip is ready")/*micropip.install("py-pde")*/)
                   .then(() => res(pyodide));
                 }
             })
