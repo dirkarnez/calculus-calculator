@@ -13,6 +13,7 @@
     Open your browser console to see Pyodide output
  	  <textarea id="textarea_input" rows="10" placeholder="Once upon a time..."></textarea>
     <br>
+    <button id="btn_pde">PDE on sympy</button>
     <button id="btn_submit">Submit</button>
     <br>
     <div id="console_output"></div>
@@ -58,6 +59,17 @@ print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
               pyodide.runPython(textareaInput.value);
             })
         });
+
+        document.getElementById("btn_pde").addEventListener("click", function() {
+           textareaInput.value = `from sympy import symbols, diff
+x, y, z = symbols('x y z', real=True)
+f = 4*x*y + x*sin(z) + x**3 + z**8*y
+diff(f, x)
+# 4*y + sin(z) + 3*x**2
+`;
+        });
+
+            
     </script>
   </body>
 </html>
