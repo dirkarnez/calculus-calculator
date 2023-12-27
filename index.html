@@ -7,13 +7,6 @@
               width: 100%;
           }
       </style>
-    <script>
-        const worker = new Worker('worker.js');
-        worker.addEventListener('message', e => {
-          console.log(e.data);
-        });
-        worker.postMessage('hello');
-    </script>
   </head>
   <body>
     Pyodide test page <br>
@@ -25,6 +18,11 @@
     <br>
     <div id="console_output"></div>
     <script type="text/javascript">
+      const worker = new Worker('worker.js');
+      worker.onmessage = function(e) {
+        consoleOutput.innerHTML += `${e.data}<br>`,
+      }
+      
       const code = `import scipy.integrate as integrate
 import scipy.special as special
 print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
@@ -33,38 +31,9 @@ print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
      	  const textareaInput = document.getElementById("textarea_input");
         textareaInput.value = code;
       
-        const getPyodidePromise = (() => {
-        	let pyodide;
-            
-            return () => new Promise(res => {
-            	if (!!pyodide) {
-                	console.log("already");
-                	res(pyodide);
-                } else {
-                  loadPyodide({
-                    fullStdLib: true,
-                    stdout: msg => consoleOutput.innerHTML += `${msg}<br>`,
-                  })
-                  .then(_pyodide => {
-                    console.log(`just now ${!!pyodide ? "overriding..." : "new"}`);
-                    pyodide = _pyodide;
-                  })
-                  .then(() => pyodide.loadPackage("scipy"))
-                  .then(() => pyodide.loadPackage("sympy"))
-                  .then(() => pyodide.loadPackage("micropip"))
-                  .then(() => pyodide.pyimport("micropip"))
-                  .then(micropip => console.log("micropip is ready")/*micropip.install("py-pde")*/)
-                  .then(() => res(pyodide));
-                }
-            })
-        })();
-        
         document.getElementById("btn_submit").addEventListener("click", function() {
             consoleOutput.innerHTML = "";
-        	  getPyodidePromise()
-            .then(pyodide => {
-              pyodide.runPython(textareaInput.value);
-            })
+            worker.postMessage([textareaInput.value]);
         });
 
         document.getElementById("btn_pde").addEventListener("click", function() {
