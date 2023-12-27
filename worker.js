@@ -30,7 +30,7 @@ const getPyodidePromise = (() => {
 
 onmessage = function(e) {
   const data = e.data[0];
-  if (!!data) {
+  if (!data) {
     postMessage('Please input');
   } else {
      getPyodidePromise(msg => postMessage(msg))
