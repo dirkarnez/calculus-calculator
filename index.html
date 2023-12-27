@@ -61,14 +61,23 @@ print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
         });
 
         document.getElementById("btn_pde").addEventListener("click", function() {
-           textareaInput.value = `from sympy import symbols, cos, diff
+           textareaInput.value = `from sympy import *
+init_printing()
+
+x, y, dx, dy = symbols('x, y, dx, dy')
+
 # sympy.diff auto get PDE / ODE based on whether the input function is multivariable
+
 # PDE
 print(diff(x**3 * y**5, x))
 print(diff(x**3 * y**5, y))
 
 # ODE
 print(diff(-x**2 + 2 *x + 5, x))
+
+# Total Differential / Exact differential / Full differential (same thing)
+f = 5*x**3-4*x*y+2*y**2
+print(diff(f, x) * dx + diff(f, y) * dy) #dx*(15*x**2 - 4*y) + dy*(-4*x + 4*y)
 `;
         });
 
