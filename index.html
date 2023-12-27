@@ -20,7 +20,7 @@
     <script type="text/javascript">
       const worker = new Worker('worker.js');
       worker.onmessage = function(e) {
-        consoleOutput.innerHTML += `${e.data}<br>`,
+        consoleOutput.innerHTML += `${e.data}<br>`;
       }
       
       const code = `import scipy.integrate as integrate
