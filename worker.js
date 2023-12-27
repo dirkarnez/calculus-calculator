@@ -11,7 +11,7 @@ const getPyodidePromise = (() => {
        } else {
          loadPyodide({
            fullStdLib: true,
-           stdout: msg => stdout  //
+           stdout: stdout
          })
          .then(_pyodide => {
            console.log(`just now ${!!pyodide ? "overriding..." : "new"}`);
