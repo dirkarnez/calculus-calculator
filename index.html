@@ -43,6 +43,11 @@ print(integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5))
         document.getElementById("btn_pde").addEventListener("click", function() {
            textareaInput.value = `from sympy import *
 init_printing()
+import matplotlib
+import numpy as np
+matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
+import matplotlib.cm as cm
+from matplotlib import pyplot as plt
 
 x, y, dx, dy = symbols('x, y, dx, dy')
 
@@ -58,6 +63,26 @@ print(diff(-x**2 + 2 *x + 5, x))
 # Total Differential / Exact differential / Full differential (same thing)
 f = 5*x**3-4*x*y+2*y**2
 print(diff(f, x) * dx + diff(f, y) * dy) #dx*(15*x**2 - 4*y) + dy*(-4*x + 4*y)
+
+
+# testing
+delta = 0.025
+x = y = np.arange(-3.0, 3.0, delta)
+X, Y = np.meshgrid(x, y)
+Z1 = np.exp(-(X**2) - Y**2)
+Z2 = np.exp(-((X - 1) ** 2) - (Y - 1) ** 2)
+Z = (Z1 - Z2) * 2
+plt.figure()
+plt.imshow(
+Z,
+interpolation="bilinear",
+cmap=cm.RdYlGn,
+origin="lower",
+extent=[-3, 3, -3, 3],
+vmax=abs(Z).max(),
+vmin=-abs(Z).max(),
+)
+plt.show()
 `;
         });
 
